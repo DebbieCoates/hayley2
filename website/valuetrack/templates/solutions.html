@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    SOLUTIONS PAGE
+    <p>Total Solutions: {{ solutions_count }}</p> 
+
+    <ul>
+      {% for solution in solutions %}
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h3 style="margin: 0;">{{ solution.name }}</h3>
+          <a href="{% url 'solution_detail' solution.id %}">Track up Area's</a>
+        </div>
+
+
+        <p>{{ solution.description }}</p>
+        <strong>Provided by:</strong>
+          <ul>
+            {% for link in solution.supplier_links %}
+              <li>
+                <strong>{{ link.supplier.name }}</strong><br>
+                <em>Supplier-specific note:</em> {{ link.description }}
+              </li>
+            {% empty %}
+              <li>No suppliers listed.</li>
+            {% endfor %}
+          </ul>
+        <hr>
+      {% endfor %}
+    </ul>
+    
+
+{% endblock %}  

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- <h2>Problems and Their Solutions</h2>
+  <p>Total Problems: {{ problems_count }}</p>
+  <br> -->
+
+  {% for problem in problems %}
+    <div>
+      <h3>Problem : {{ problem.title }}</h3>
+      <p>{{ problem.description }}</p>
+
+      <strong>Solutions:</strong>
+      <ul>
+        {% for link in problem.solution_links %}
+          <li>
+            <a href="{% url 'solution_detail' link.solution.id %}">{{ link.solution.name }}</a>   </><br>
+            <!-- <em>{{ link.solution.description }}</em><br> -->
+            
+            <u>Offered by:</u>
+            <ul>
+              {% for supplier_link in link.solution.supplier_links %}
+                <li>
+                  <a href="{% url 'supplier_detail' supplier_link.supplier.id %}">{{ supplier_link.supplier.name }}</a>  — {{ supplier_link.description }}
+                </li>
+              {% empty %}
+                <li>No suppliers listed.</li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% empty %}
+          <li>No solutions listed for this problem.</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <hr>
+  {% endfor %}
+{% endblock %}

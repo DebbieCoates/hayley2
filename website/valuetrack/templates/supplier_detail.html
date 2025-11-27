@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+SUPPLIER DETAIL PAGE
+  <h2>{{ supplier.name }}</h2>
+<br>
+  <h3>Solutions Offered:</h3>
+  <br>
+  <ul>
+    {% for link in supplier.solution_links %}
+      <li>
+        <strong>{{ link.solution.name }}</strong>: &nbsp;&nbsp;
+        
+        <!-- <em>{{ link.solution.description }}</em><br> -->
+        <em></em> {{ link.description }}
+      
+        <br><em>Addresses the following Issues:</em>
+        <br>
+        <ul>
+          {% for problem_link in link.solution.problem_links %}
+            <li>{{ problem_link.problem.title }} — {{ problem_link.problem.description }}</li>
+          {% empty %}
+            <li>No problems linked to this solution.</li>
+          {% endfor %}
+        </ul>
+      </li>
+      <br>
+    {% empty %}
+      <li>This supplier has no listed solutions.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

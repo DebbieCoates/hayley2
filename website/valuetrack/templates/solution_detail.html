@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+SOLUTION DETAIL PAGE
+
+  <h2>Solution: {{ solution.name }}</h2>
+  <p>{{ solution.description }}</p>
+
+  <h3>Trackup Area Impacts:</h3>
+  <ul>
+    {% for impact in solution.impact_links %}
+      <li>
+        <strong>{{ impact.get_area_display }}</strong><br>
+        {{ impact.notes }}
+      </li>
+    {% empty %}
+      <li>No impacts listed for this solution.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

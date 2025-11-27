@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  SUPPLIERS PAGE
+  <p>Total Suppliers: {{ suppliers_count }}</p>
+  <br>
+
+  <ul>
+   {% for supplier in suppliers %}
+      <h3><a href="{% url 'supplier_detail' supplier.id %}">{{ supplier.name }}</a></h3>
+      <strong>Solutions offered:</strong>
+      <ul>
+        {% for link in supplier.solution_links %}
+          <li>
+            <strong>{{ link.solution.name }}</strong><br>
+            <!-- <em>Standard description:</em> {{ link.solution.description }}<br> -->
+            <em>Supplier-specific note:</em> {{ link.description }}
+          </li>
+        {% empty %}
+          <li>No solutions listed.</li>
+        {% endfor %}
+      </ul>
+      <hr>
+    {% endfor %}
+ </ul>
+
+{% endblock %}
