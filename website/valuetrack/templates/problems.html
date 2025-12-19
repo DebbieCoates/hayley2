@@ -3,26 +3,40 @@
 {% block content %}
   PROBLEMS PAGE
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<div style="
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px;
+">
 
+    <!-- LEFT SIDE -->
     <div>
-        <h2>Problems and Their Solutions</h2>
-        <p>Total Problems: {{ problems_count }}</p>
+        <h2 style="margin: 0;">Problems and Their Solutions</h2>
+        <p style="margin: 0;">Total Problems: {{ problems_count }}</p>
     </div>
 
-    <form method="get">
+    <!-- RIGHT SIDE -->
+    <form method="get" style="display: flex; gap: 10px; align-items: center;">
         <input 
             type="text" 
             name="q" 
             placeholder="Filter problems..." 
             value="{{ query }}"
-            style="padding: 6px; width: 250px;"
+            style="padding: 6px; width: 250px; border-radius: .375rem; border: 1px solid #ccc;"
         >
-        <button type="submit" style="padding: 6px 12px;">Search</button>
-        <a href="{% url 'problems' %}" style="margin-left: 10px;">Clear</a>
+
+        <button type="submit" class="btn btn-primary mb-0" style="padding: 6px 12px;">
+            Search
+        </button>
+
+        <a href="{% url 'problems' %}" class="btn btn-secondary mb-0">
+            Clear
+        </a>
     </form>
 
 </div>
+
 <hr>
 
   {% for problem in problems %}

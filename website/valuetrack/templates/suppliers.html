@@ -2,8 +2,41 @@
 
 {% block content %}
   SUPPLIERS PAGE
-  <p>Total Suppliers: {{ suppliers_count }}</p>
-  <br>
+  <div style="
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 20px;
+  ">
+
+      <!-- LEFT SIDE -->
+      <div>
+          <h2 style="margin: 0;">Suppliers</h2>
+          <p style="margin: 0;">Total Suppliers: {{ suppliers_count }}</p>
+      </div>
+
+      <!-- RIGHT SIDE (FILTER FORM) -->
+      <form method="get" style="display: flex; gap: 10px; align-items: center;">
+          <input 
+              type="text" 
+              name="q" 
+              placeholder="Filter suppliers..." 
+              value="{{ query }}"
+              style="padding: 6px; width: 250px; border-radius: .375rem; border: 1px solid #ccc;"
+          >
+
+          <button type="submit" class="btn btn-primary mb-0" style="padding: 6px 12px;">
+              Search
+          </button>
+
+          <a href="{% url 'suppliers' %}" class="btn btn-secondary mb-0">
+              Clear
+          </a>
+      </form>
+
+  </div>
+
+
 
   <ul>
    {% for supplier in suppliers %}

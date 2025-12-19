@@ -9,7 +9,14 @@ def index(request):
 
 
 def suppliers(request):
-    suppliers = Supplier.objects.prefetch_related(
+    query = request.GET.get("q", "").strip()
+
+    base_qs = Supplier.objects.all()
+
+    if query:
+        base_qs = base_qs.filter(name__icontains=query)
+
+    suppliers = base_qs.prefetch_related(
         Prefetch(
             'suppliersolution_set',
             queryset=SupplierSolution.objects.select_related('solution'),
@@ -21,7 +28,8 @@ def suppliers(request):
 
     return render(request, 'suppliers.html', {
         'suppliers': suppliers,
-        'suppliers_count': suppliers_count
+        'suppliers_count': suppliers_count,
+        'query': query,
     })
     
 def solutions(request):
