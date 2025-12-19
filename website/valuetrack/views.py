@@ -46,7 +46,14 @@ def solutions(request):
     })
     
 def problems(request):
-    problems = Problem.objects.prefetch_related(
+    query = request.GET.get("q", "").strip()
+
+    base_qs = Problem.objects.all()
+
+    if query:
+        base_qs = base_qs.filter(title__icontains=query)
+
+    problems = base_qs.prefetch_related(
         Prefetch(
             'solutionproblem_set',
             queryset=SolutionProblem.objects.select_related('solution').prefetch_related(
@@ -64,7 +71,8 @@ def problems(request):
 
     return render(request, 'problems.html', {
         'problems': problems,
-        'problems_count': problems_count
+        'problems_count': problems_count,
+        'query': query,
     })
     
 def supplier_detail(request, supplier_id):

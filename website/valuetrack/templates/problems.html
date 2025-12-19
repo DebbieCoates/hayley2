@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <!-- <h2>Problems and Their Solutions</h2>
-  <p>Total Problems: {{ problems_count }}</p>
-  <br> -->
-
   PROBLEMS PAGE
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+
+    <div>
+        <h2>Problems and Their Solutions</h2>
+        <p>Total Problems: {{ problems_count }}</p>
+    </div>
+
+    <form method="get">
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="Filter problems..." 
+            value="{{ query }}"
+            style="padding: 6px; width: 250px;"
+        >
+        <button type="submit" style="padding: 6px 12px;">Search</button>
+        <a href="{% url 'problems' %}" style="margin-left: 10px;">Clear</a>
+    </form>
+
+</div>
+<hr>
 
   {% for problem in problems %}
     <div>
